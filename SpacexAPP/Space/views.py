@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import spaceClass
 from . import models
 
 import datetime
@@ -24,7 +25,7 @@ def spacef(request):
         #print(date_time)
         #converting date
         date_obj=datetime.datetime.strptime(date_time ,'%Y-%m-%d')
-        date_obj2=datetime.datetime.strftime(date_obj,'%d-%b-%Y')
+        date_obj2=datetime.datetime.strftime(    date_obj,'%d-%b-%Y')
         #print(type(date_obj))   
         #dictionary of required values
         res={'flight_number':i['flight_number'],'mission_name':i['mission_name'],'launch_date_utc':(date_obj2),'rocket_name':i['rocket']["rocket_name"],'mission_patch':i['links']['mission_patch']}
@@ -34,4 +35,31 @@ def spacef(request):
     #dictionary to pass to html page    
     details={'detail':final}
     return render(request ,'hello.html',details)
-    
+
+
+
+#function to add data to the database 
+def add_data(request):
+
+        connect=requests.get("https://api.spacexdata.com/v3/launches")
+        result=connect.json()
+        print(connect.status_code)
+
+        for i in result:
+                date_time=i['launch_date_utc'][0:10]+" "+i['launch_date_utc'][11:22]
+                print(date_time)
+                date_obj=datetime.datetime.strptime(date_time,'%Y-%m-%d %H:%M:%S.%f')
+
+
+
+                #adding data to the database
+                add=models.spaceClass()
+                add.flight_number=i['flight_number']
+                add.mission_name=i['mission_name']
+                add.rocket_name=i['rocket']["rocket_name"]
+                add.mission_patch=i['links']['mission_patch']
+                add.time=date_obj
+                add.save()
+
+        return HttpResponse("Data added")
+
