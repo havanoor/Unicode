@@ -31,6 +31,7 @@ def spacef(request):
         final.append(res)
         print(res['launch_date_utc'])
         #  print(i)
-      
-    return HttpResponse( "<p><h3>%s<h3></p><br>" %i for i in final)
+    #dictionary to pass to html page    
+    details={'detail':final}
+    return render(request ,'hello.html',details)
     

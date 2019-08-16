@@ -1,0 +1,25 @@
+<html>
+<body>
+<table align="center" style="border:1px solid black " >
+    <tr align="center" style="border:1px solid black">
+        <th align="center">Flight Number</th>
+        <th align="center">Mission Name</th>
+        <th>UTC Launch Date</th>
+        <th>Rocket Name</th>
+        <th>Mission Link</th>
+        </tr>
+ {% for i in detail %}
+ <tr>
+
+<td>{{i.flight_number}}</td>
+<td>{{i.mission_name}}</td>
+<td>{{i.launch_date_utc}}</td>
+<td>{{i.rocket_name}}</td>
+<td>{{i.mission_patch}}</td>
+
+</tr>
+{% endfor %}
+
+</table>
+</body>
+</html>
