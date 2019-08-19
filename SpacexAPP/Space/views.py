@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import spaceClass
 from . import models
+from django.template.loader import render_to_string
+
 
 import datetime
 
@@ -34,7 +36,9 @@ def spacef(request):
         #  print(i)
     #dictionary to pass to html page    
     details={'detail':final}
-    return render(request ,'hello.html',details)
+    #return render(request ,'hello.html',details)
+    return HttpResponse( "<p><h3>{}<h3></p><br>".format(i) for i in final)
+    
 
 
 
@@ -60,6 +64,9 @@ def add_data(request):
                 add.mission_patch=i['links']['mission_patch']
                 add.time=date_obj
                 add.save()
+                
 
-        return HttpResponse("Data added")
-
+                data={"detail":spaceClass.objects.all()}
+                ren=render_to_string('hello.html',data)
+        return HttpResponse(ren)
+        #return render(request,'hello.html',data)

@@ -1,21 +1,43 @@
 <html>
-<body>
-<table align="center" style="border:1px solid black " >
-    <tr align="center" style="border:1px solid black">
-        <th align="center">Flight Number</th>
-        <th align="center">Mission Name</th>
+
+    <head>
+        <style>
+    table{
+        border: 1px solid black;
+        width: 100%;
+        border-collapse: collapse;}    
+        th{
+            text-align: center;
+            border:1px solid black;
+        }
+        td
+        { text-align: center;
+            border:1px solid black;
+        }
+
+        }
+        
+        
+        </style>
+   </head>
+
+    <body >
+<table  align="center">
+    <tr align="center" >
+        <th align="center" border="1">Flight Number</th>
+        <th align="center" border="1">Mission Name</th>
         <th>UTC Launch Date</th>
         <th>Rocket Name</th>
         <th>Mission Link</th>
         </tr>
  {% for i in detail %}
- <tr>
+ <tr >
 
-<td>{{i.flight_number}}</td>
+<td >{{i.flight_number}}</td>
 <td>{{i.mission_name}}</td>
 <td>{{i.launch_date_utc}}</td>
 <td>{{i.rocket_name}}</td>
-<td>{{i.mission_patch}}</td>
+<td><img src='{{i.mission_patch}}' height='60' width="60" alt="Rocket"></td>
 
 </tr>
 {% endfor %}
