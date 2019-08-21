@@ -1,5 +1,5 @@
 
-input_string=input()
+input_string=input("Enter the input string")
 
 input_list=input_string.split(',')
 

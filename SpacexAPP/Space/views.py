@@ -30,14 +30,14 @@ def spacef(request):
         date_obj2=datetime.datetime.strftime(    date_obj,'%d-%b-%Y')
         #print(type(date_obj))   
         #dictionary of required values
-        res={'flight_number':i['flight_number'],'mission_name':i['mission_name'],'launch_date_utc':(date_obj2),'rocket_name':i['rocket']["rocket_name"],'mission_patch':i['links']['mission_patch']}
+        res={'flight_number':i['flight_number'],'mission_name':i['mission_name'],'time':(date_obj2),'rocket_name':i['rocket']["rocket_name"],'mission_patch':i['links']['mission_patch']}
         final.append(res)
         print(res['launch_date_utc'])
         #  print(i)
     #dictionary to pass to html page    
     details={'detail':final}
-    #return render(request ,'hello.html',details)
-    return HttpResponse( "<p><h3>{}<h3></p><br>".format(i) for i in final)
+    return render(request ,'hello.html',details)
+    #return HttpResponse( "<p><h3>{}<h3></p><br>".format(i) for i in final)
     
 
 
@@ -68,5 +68,6 @@ def add_data(request):
 
                 data={"detail":spaceClass.objects.all()}
                 ren=render_to_string('hello.html',data)
+        print(ren)
         return HttpResponse(ren)
         #return render(request,'hello.html',data)
